@@ -1,0 +1,53 @@
+version: '3' # Specify Compose file version
+services:
+  server1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: server1
+    networks:
+      game-network:
+        ipv4_address: 172.18.1.2
+    ports:
+      - "5001:5000"
+    command: python3 game_server.py
+
+  server2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: server2
+    networks:
+      game-network:
+        ipv4_address: 172.18.1.3
+    ports:
+      - "5002:5000"
+    command: python3 game_server.py
+  server3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: server3
+    networks:
+      game-network:
+        ipv4_address: 172.18.1.4
+    ports:
+      - "5003:5000"
+    command: python3 game_server.py
+  loadbalancer:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: loadbalancer
+    networks:
+      game-network:
+        ipv4_address: 172.18.1.5
+    ports:
+      - "80:80"
+networks:
+  game-network:
+    name: game-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16

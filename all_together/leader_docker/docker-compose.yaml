@@ -1,0 +1,75 @@
+version: '3' # Specify Compose file version
+services:
+  leader:
+    build:
+      context: .
+      dockerfile: Dockerfile.player
+    container_name: leader
+    networks:
+      game-network:
+        ipv4_address: 172.18.0.2
+    ports:
+      - "12345:12345/udp"
+      - "7006:7006/udp"
+    command: python3 -u player_node_master.py --port 7006 -l 172.18.1.5 -i True -m 172.18.0.2
+
+  player1:
+    build:
+      context: .
+      dockerfile: Dockerfile.player
+    container_name: player1
+    networks:
+      game-network:
+        ipv4_address: 172.18.0.3
+    ports:
+      - "7001:7001/udp"
+    command: python3 -u player_node_master.py --port 7001 -l 172.18.1.5 -s 5 -m 172.18.0.3
+  player2:
+    build:
+      context: .
+      dockerfile: Dockerfile.player
+    container_name: player2
+    networks:
+      game-network:
+        ipv4_address: 172.18.0.4
+    ports:
+      - "7002:7002/udp"
+    command: python3 -u player_node_master.py --port 7002 -l 172.18.1.5 -s 6 -m 172.18.0.4
+  player3:
+    build:
+      context: .
+      dockerfile: Dockerfile.player
+    container_name: player3
+    networks:
+      game-network:
+        ipv4_address: 172.18.0.5
+    ports:
+      - "7003:7003/udp"
+    command: python3 -u player_node_master.py --port 7003 -l 172.18.1.5 -s 8 -m 172.18.0.5
+  player4:
+    build:
+      context: .
+      dockerfile: Dockerfile.player
+    container_name: player4
+    networks:
+      game-network:
+        ipv4_address: 172.18.0.6
+    ports:
+      - "7004:7004/udp"
+    command: python3 -u player_node_master.py --port 7004 -l 172.18.1.5 -s 9 -m 172.18.0.6
+  player5:
+    build:
+      context: .
+      dockerfile: Dockerfile.player
+    container_name: player5
+    networks:
+      game-network:
+        ipv4_address: 172.18.0.7
+    ports:
+      - "7005:7005/udp"
+    command: python3 -u player_node_master.py --port 7005 -l 172.18.1.5 -s 10 -m 172.18.0.7
+networks:
+  game-network:
+    name: game-network
+    driver: bridge
+    external: true
