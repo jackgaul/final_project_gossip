@@ -65,8 +65,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgements
 Special thanks to Professor Moazzeni for the knowledge and resources provided throughout the project.
 
-
-
+## Division of Work
+- Jack Gaul: Gossip Protocol Implementation
+- Patrick Lee: Replication and Concurrency Control Implementation
+- Hardik Vora: Leader-Election Implementation
 
 ## To run
 1. run: cd all_together/gamebroker
