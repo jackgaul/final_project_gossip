@@ -52,6 +52,18 @@ This project successfully implements the necessary infrastructure to support any
     docker-compose up -d --build
     ```
 
+5. **IMPORTANT:**
+If you want to rerun the code more than once, you must first kill all the player containers and then kill all the gamebroker containers by running:
+
+    ```bash
+    docker-compose down //in the leader_docker
+    docker-compose down //in the gamebroker
+    docker-compose up -d --build //in the gamebroker
+    docker-compose up -d --build // in the leader_docker
+    ```
+Just restarting the game broker wont work and leaves old gameIDs leading to out of scope behavior.
+    
+
 
 
 ## Usage
